@@ -1,31 +1,27 @@
 import sys
 input = sys.stdin.readline
 
-
-# 팩토리얼
-def P(n):
+def factorial(n):
     if n <= 1:
         return 1
-    return n*P(n-1)
+    else:
+        return n * factorial(n-1)
 
-# 조합
-def Comb(n, r):
-    return P(n)//(P(r)*P(n-r))
-
-N, M, K = map(int, input().split())
-
-# K번째 칸이 몇행(K//M) 몇열(K%M - 1)인지
-
+N, M, K = map(int, input().split()) # 행 열 동그라미
 if K == 0:
-    # (0, 0)부터 (N-1, M-1)까지 가는 최단경로
-    result = Comb((N-1) + (M -1)  , M -1 )
-
+    print(factorial(N+M-2)//(factorial(N-1)*factorial(M-1)))
 else:
-    # (0, 0)부터 (K//M, K%M -1)을 거쳐서 (N-1, M-1)까지 가는 최단경로
-    midPointRow = K//M
-    midPointCol = K%M - 1
-    result = Comb(midPointRow + midPointCol, midPointCol) * Comb(N-1 - midPointRow + M - 1 - midPointCol, M - 1 - midPointCol)
+    if K % M == 0:
+        K_r = K // M - 1
+        K_c = M - 1
+    else:
+        K_r = K // M
+        K_c = K % M -1 # K의 열(이면서 첫 번째 구간에서 이동해야 할 가로 칸 수)
 
-print(result)
+    area1 = factorial(K_r + K_c) // (factorial(K_r)*factorial(K_c))
 
+    K_r2 = N-1 - K_r # 두 번째 구간에서 이동해야 할 세로 칸 수
+    K_c2 = M-1 - K_c # 두 번째 구간에서 이동해야 할 가로 칸 수
+    area2 = factorial(K_r2 + K_c2) // (factorial(K_r2)*factorial(K_c2))
 
+    print(area1*area2)
