@@ -21,7 +21,7 @@ while (start <= end) {
     cnt += Math.trunc(lan / mid)
   })
   if (cnt >= N) {
-    maxV = Math.max(maxV, mid)
+    maxV = mid
     start = mid + 1
   } else {
     end = mid -1
