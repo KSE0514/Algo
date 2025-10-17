@@ -68,7 +68,8 @@ while (maxP != 0) {
     }
   }
 }
+result.push(1)
 result.reverse()
 
 // 출력2
-console.log(1, ...result)
+console.log(result.join(' '))
